@@ -1,5 +1,5 @@
 import React from 'react';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, Link} from 'react-router-dom';
 
 export default function MovieList(props) {
 
@@ -10,7 +10,8 @@ export default function MovieList(props) {
   return (
     <div className="movie-list">
       {props.movies.map(movie => (
-        <MovieDetails key={movie.id} movie={movie} onMovieClick={onMovieClick(movie.id)} />
+        <MovieDetails link={<Link to={`movies/${movie.id}`}>details</Link>}
+        key={movie.id} movie={movie} onMovieClick={onMovieClick(movie.id)} />
       ))}
     </div>
   );
@@ -18,7 +19,7 @@ export default function MovieList(props) {
 
 function MovieDetails(props) {
   const { title, director, metascore } = props.movie;
-  const {onMovieClick} = props
+  const {onMovieClick, link} = props
 
 
   return (
@@ -30,6 +31,7 @@ function MovieDetails(props) {
       <div className="movie-metascore">
         Metascore: <strong>{metascore}</strong>
       </div>
+      {link}
     </div>
   );
 }
